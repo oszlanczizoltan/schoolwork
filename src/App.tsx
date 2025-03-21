@@ -4,10 +4,10 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-import Login from "./Login";
-import Register from "./Register";
-import Dashboard from "./Dashboard";
-import Admin from "./Admin";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./components/Admin/Admin";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);

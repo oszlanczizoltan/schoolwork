@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "./firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { collection, getDocs, doc, updateDoc, deleteDoc, addDoc } from "firebase/firestore";
 
 interface Car {
