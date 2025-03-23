@@ -1,39 +1,36 @@
-import { useState } from "react";
-import { auth, db } from "../../firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { registerUser } from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await setDoc(doc(db, "Users", user.uid), {
-        email: user.email,
-        role: "user",
-      });
-
-      alert("Registration successful! You can now log in.");
-      navigate("/");
+      await registerUser(email, password);
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Error registering:", error);
-      alert("Registration failed! Try again.");
+      console.error("Registration error:", error);
     }
   };
 
   return (
     <div>
       <h2>Register</h2>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button onClick={handleRegister}>Register</button>
-      <button onClick={() => navigate("/")}>Back to Login</button>
+      <form onSubmit={handleRegister}>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <button type="submit">Register</button>
+      </form>
     </div>
   );
 };

@@ -1,18 +1,45 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAdvF_E7Ert0WmsqkVH9hPzs40j28IOPJA",
-    authDomain: "carhandling-6d6e6.firebaseapp.com",
-    projectId: "carhandling-6d6e6",
-    storageBucket: "carhandling-6d6e6.appspot.com",
-    messagingSenderId: "85573757017",
+    apiKey: "AIzaSyAyObEkKr1CTsEmvANBBdkRA_yvYvumCBc",
+    authDomain: "itwebshop-e607b.firebaseapp.com",
+    projectId: "itwebshop-e607b",
+    storageBucket: "itwebshop-e607b.appspot.com",
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export default app;
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export const loginUser = async (email: string, password: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    } catch (error) {
+      console.error("Error logging in:", error);
+      throw error;
+    }
+  };
+  
+  export const registerUser = async (email: string, password: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    } catch (error) {
+      console.error("Error registering user:", error);
+      throw error;
+    }
+  };
+  
+  export const logoutUser = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error logging out:", error);
+      throw error;
+    }
+  };
+  
+  export { auth, db };
