@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, getDocs, collection, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAyObEkKr1CTsEmvANBBdkRA_yvYvumCBc",
@@ -11,7 +11,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getFirestore();
 
 export const loginUser = async (email: string, password: string) => {
     try {
@@ -42,4 +42,4 @@ export const loginUser = async (email: string, password: string) => {
     }
   };
   
-  export { auth, db };
+  export { auth, db, doc, setDoc, getDoc, getDocs, collection, updateDoc, deleteDoc, serverTimestamp };

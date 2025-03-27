@@ -1,5 +1,5 @@
 import React from "react";
-import useAuth from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import useProducts from "../hooks/useProducts";
 import ProductListing from "../components/User/ProductListing";
 import Cart from "../components/User/Cart";

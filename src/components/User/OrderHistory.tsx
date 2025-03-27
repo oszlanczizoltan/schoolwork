@@ -7,8 +7,13 @@ const OrderHistory: React.FC = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const orderList = await getOrderHistory();
-        setOrders(orderList);
+        const orderList = await getOrderHistory(user?.id);
+        setOrders(orderList.map(order => ({
+          id: order.id,
+          product: order.product ?? "Unknown Product",
+          date: order.date ?? new Date().toISOString(),
+          status: order.status ?? "Pending"
+        })));
       } catch (error) {
         console.error("Error fetching order history:", error);
       }

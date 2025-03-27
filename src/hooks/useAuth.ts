@@ -1,21 +1,25 @@
-import { useState, useEffect } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../services/firebase";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../services/firebase";
 
-const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  return { user, loading };
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };
 
-export default useAuth;
+export const getUserData = async (uid: string): Promise<CustomUser | null> => {
+  const userRef = doc(db, "users", uid);
+  const userSnap = await getDoc(userRef);
+
+  if (userSnap.exists()) {
+    return {
+      id: uid,
+      ...userSnap.data(),
+    } as CustomUser;
+  }
+  return null;
+};

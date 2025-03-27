@@ -6,7 +6,7 @@ const Cart: React.FC = () => {
 
   const fetchCartItems = async () => {
     try {
-      const cartItems = await getCartItems();
+      const cartItems = await getCartItems(user?.id);
       setCart(cartItems);
     } catch (error) {
       console.error("Error fetching cart items:", error);

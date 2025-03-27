@@ -8,7 +8,13 @@ const ProductManagement: React.FC = () => {
   const fetchProducts = async () => {
     try {
       const productList = await getProducts();
-      setProducts(productList);
+      setProducts(productList.map(p => ({
+        id: p.id ?? crypto.randomUUID(),
+        name: p.name,
+        price: p.price,
+        releaseDate: p.releaseDate,
+        memory: p.memory,
+      })));
     } catch (error) {
       console.error("Error fetching products:", error);
     }

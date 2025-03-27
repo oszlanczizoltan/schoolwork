@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { getProducts } from "../../services/productService";
+import React from "react";
 
-const ProductListing: React.FC = () => {
-  const [products, setProducts] = useState<{ id: string; name: string; price: number; releaseDate: string; memory: string }[]>([]);
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  releaseDate: string;
+  memory: string;
+}
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productList = await getProducts();
-        setProducts(productList);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
-  }, []);
+interface ProductListingProps {
+  products: Product[];
+}
 
+const ProductListing: React.FC<ProductListingProps> = ({ products }) => {
   return (
     <div>
       <h2>Available Graphics Cards</h2>

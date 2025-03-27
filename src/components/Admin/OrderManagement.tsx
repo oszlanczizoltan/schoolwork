@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { approveOrder, rejectOrder, getPendingOrders } from "../../services/orderService";
 
+export interface Order {
+  id: string;
+  user: string;
+  product: string;
+  status: string;
+}
+
 const OrderManagement: React.FC = () => {
-  const [orders, setOrders] = useState<{ id: string; user: string; product: string; status: string }[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const fetchOrders = async () => {
     try {

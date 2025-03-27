@@ -1,17 +1,17 @@
 import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, query, where } from "firebase/firestore";
 import { db } from "./firebase";
+import { Order } from "../components/Admin/OrderManagement";
 
 const ordersCollection = collection(db, "orders");
 
-export const getPendingOrders = async () => {
-  try {
-    const q = query(ordersCollection, where("status", "==", "pending"));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  } catch (error) {
-    console.error("Error fetching pending orders:", error);
-    throw error;
-  }
+export const getPendingOrders = async (): Promise<Order[]> => {
+  const snapshot = await getDocs(collection(db, "orders"));
+  return snapshot.docs.map(doc => ({
+    id: doc.id,
+    user: doc.data().user || "Unknown User",
+    product: doc.data().product || "Unknown Product",
+    status: doc.data().status || "pending",
+  }));
 };
 
 export const getOrderHistory = async (userId: string) => {
