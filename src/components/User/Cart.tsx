@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { addToCart, removeFromCart, getCartItems } from "../../services/productService";
+import React, { useState, useEffect } from "react";
+import { removeFromCart, getCartItems } from "../../services/productService";
+import { useAuth } from "../../context/AuthContext";
 
 const Cart: React.FC = () => {
+  const { user } = useAuth();
   const [cart, setCart] = useState<{ id: string; name: string; price: number }[]>([]);
 
+  useEffect(() => {
+    if (user) {
+      fetchCartItems();
+    }
+  }, [user]);
+
   const fetchCartItems = async () => {
+    if (!user) return;
+
     try {
-      const cartItems = await getCartItems(user?.id);
+      const cartItems = await getCartItems(user.id);
       setCart(cartItems);
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -14,6 +24,8 @@ const Cart: React.FC = () => {
   };
 
   const handleRemove = async (productId: string) => {
+    if (!user) return;
+    
     await removeFromCart(productId);
     fetchCartItems();
   };

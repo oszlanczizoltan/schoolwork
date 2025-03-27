@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 export interface GraphicsCard {
@@ -16,8 +16,6 @@ interface CartItem {
 }
 
 const productsCollection = collection(db, "GraphicsCards");
-const cartCollection = collection(db, "carts");
-
 
 export const addProduct = async (product: GraphicsCard) => {
   const docRef = await addDoc(productsCollection, product);

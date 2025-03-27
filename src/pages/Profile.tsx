@@ -12,7 +12,7 @@ const Profile: React.FC = () => {
       <Navbar />
       <h1>User Profile</h1>
       <p>Email: {user.email}</p>
-      <p>Member since: {new Date(user.createdAt).toLocaleDateString()}</p>
+      <p>Member since: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "Unknown"}</p>
     </div>
   );
 };

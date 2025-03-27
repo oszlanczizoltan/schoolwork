@@ -1,4 +1,4 @@
-import { collection, getDocs, doc, updateDoc, addDoc, deleteDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 import { Order } from "../components/Admin/OrderManagement";
 
@@ -18,7 +18,18 @@ export const getOrderHistory = async (userId: string) => {
   try {
     const q = query(ordersCollection, where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+    return querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+
+      return {
+        id: doc.id,
+        userId: data.userId ?? "Unknown User",
+        product: data.product ?? "Unknown Product",
+        date: data.date ? new Date(data.date).toISOString() : "Unknown Date",
+        status: data.status ?? "Pending",
+      };
+    });
   } catch (error) {
     console.error("Error fetching order history:", error);
     throw error;

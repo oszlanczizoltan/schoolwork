@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../services/firebase";
+import { db } from "../services/firebase";
+import { CustomUser } from "../context/AuthContext";
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

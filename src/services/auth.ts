@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { db, doc, setDoc, getDoc, serverTimestamp } from "../services/firebase";
+import { db, doc, setDoc, serverTimestamp } from "../services/firebase";
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 
 export const loginUser = async (email: string, password: string): Promise<UserCredential> => {
@@ -13,7 +13,7 @@ export const registerUser = async (email: string, password: string, role: string
   await setDoc(doc(db, "users", user.uid), {
     email: user.email,
     role,
-    createdAt: serverTimestamp(), // This sets Firestore's server timestamp
+    createdAt: serverTimestamp(),
   });
 
   return user;
