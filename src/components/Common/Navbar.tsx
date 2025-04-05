@@ -1,17 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/products">Products</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
-        <li><Link to="/orders">Orders</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-      </ul>
-    </nav>
+    <header>
+      <h1>Graphics Card shop</h1>
+      <div className="nav-buttons">
+        <button onClick={() => navigate("/")}>Home</button>
+        <button onClick={() => navigate("/products")}>Products</button>
+        <button onClick={() => navigate("/cart")}>Cart</button>
+        <button onClick={() => navigate("/orders")}>Orders</button>
+        <button onClick={() => navigate("/profile")}>Profile</button>
+      </div>
+    </header>
   );
 };
 

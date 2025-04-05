@@ -1,14 +1,17 @@
-import { Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
-interface ProtectedRouteProps {
+interface Props {
   component: React.ComponentType;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ component: Component }) => {
-  const { user } = useAuth();
+const ProtectedRoute: React.FC<Props> = ({ component: Component }) => {
+  const { user, loading } = useAuth();
 
-  return user ? <Component /> : <Navigate to="/" />;
+  if (loading) return <p>Loading...</p>;
+  if (!user) return <Navigate to="/login" replace />;
+
+  return <Component />;
 };
 
 export default ProtectedRoute;
