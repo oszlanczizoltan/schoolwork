@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import { approveOrder, rejectOrder, getPendingOrders } from "../../services/orderService";
-
-export interface Order {
-  id: string;
-  user: string;
-  product: string;
-  status: string;
-}
+import React, { useState, useEffect } from "react";
+import { getOrders, approveOrder } from "../../services/productService";
 
 const OrderManagement: React.FC = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<{ id: string; userId: string; products: any[]; status: string; timestamp: string }[]>([]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const fetchOrders = async () => {
     try {
-      const pendingOrders = await getPendingOrders();
-      setOrders(pendingOrders);
+      const ordersData = await getOrders();
+      setOrders(ordersData);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
@@ -25,21 +22,23 @@ const OrderManagement: React.FC = () => {
     fetchOrders();
   };
 
-  const handleReject = async (orderId: string) => {
-    await rejectOrder(orderId);
-    fetchOrders();
-  };
-
   return (
     <div>
-      <h2>Order Management</h2>
-      <button onClick={fetchOrders}>Refresh Orders</button>
+      <h2>Admin Orders</h2>
       <ul>
         {orders.map((order) => (
           <li key={order.id}>
-            {order.user} ordered {order.product}
-            <button onClick={() => handleApprove(order.id)}>Approve</button>
-            <button onClick={() => handleReject(order.id)}>Reject</button>
+            <p>User ID: {order.userId}</p>
+            <p>Status: {order.status}</p>
+            <p>Products:</p>
+            <ul>
+              {order.products.map((product, index) => (
+                <li key={index}>
+                  {product.name} - ${product.price} x {product.quantity}
+                </li>
+              ))}
+            </ul>
+            {order.status === "pending" && <button onClick={() => handleApprove(order.id)}>Approve</button>}
           </li>
         ))}
       </ul>

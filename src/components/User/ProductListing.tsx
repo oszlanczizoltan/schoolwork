@@ -1,12 +1,5 @@
 import React from "react";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  releaseDate: string;
-  memory: string;
-}
+import { Product } from "../../components/Admin/ProductManagement";
 
 interface ProductListingProps {
   products: Product[];
@@ -14,28 +7,16 @@ interface ProductListingProps {
 
 const ProductListing: React.FC<ProductListingProps> = ({ products }) => {
   return (
-    <div className="product-listing">
-      <h2>Available Graphics Cards</h2>
-      <table className="product-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price ($)</th>
-            <th>Memory</th>
-            <th>Release Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>${product.price.toFixed(2)}</td>
-              <td>{product.memory}</td>
-              <td>{product.releaseDate}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="product-grid">
+      {products.map((product) => (
+        <div key={product.id} className="product-card">
+          <h3>{product.name}</h3>
+          <p>Price: ${product.price.toFixed(2)}</p>
+          <p>Memory: {product.memory}</p>
+          <p>Release Date: {product.releaseDate}</p>
+          <p>Manufacturer: {product.manufacturer}</p>
+        </div>
+      ))}
     </div>
   );
 };

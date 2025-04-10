@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { addProduct, deleteProduct, getProducts } from "../../services/productService";
 
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  releaseDate: string;
+  memory: string;
+  manufacturer: string;
+}
+
 const ProductManagement: React.FC = () => {
-  const [products, setProducts] = useState<{ id: string; name: string; price: number; releaseDate: string; memory: string }[]>([]);
-  const [newProduct, setNewProduct] = useState({ name: "", price: 0, releaseDate: "", memory: "" });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [newProduct, setNewProduct] = useState<Product>({
+    id: "",
+    name: "",
+    price: 0,
+    releaseDate: "",
+    memory: "",
+    manufacturer: "",
+  });
 
   const fetchProducts = async () => {
     try {
       const productList = await getProducts();
-      setProducts(productList.map(p => ({
-        id: p.id ?? crypto.randomUUID(),
-        name: p.name,
-        price: p.price,
-        releaseDate: p.releaseDate,
-        memory: p.memory,
-      })));
+      setProducts(productList);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -22,7 +32,7 @@ const ProductManagement: React.FC = () => {
 
   const handleAddProduct = async () => {
     await addProduct(newProduct);
-    setNewProduct({ name: "", price: 0, releaseDate: "", memory: "" });
+    setNewProduct({ id: "", name: "", price: 0, releaseDate: "", memory: "", manufacturer: "" });
     fetchProducts();
   };
 
@@ -33,22 +43,27 @@ const ProductManagement: React.FC = () => {
 
   return (
     <div>
-      <h2>Product Management</h2>
-      <button onClick={fetchProducts}>Refresh Products</button>
-      <ul>
+      <h1>Product Management</h1>
+      <div>
+        <h2>Add Product</h2>
+        <div className="input-container">
+          <input type="text" placeholder="Name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
+          <input type="number" placeholder="Price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })} />
+          <input type="date" placeholder="Release Date" value={newProduct.releaseDate} onChange={(e) => setNewProduct({ ...newProduct, releaseDate: e.target.value })} />
+          <input type="text" placeholder="Memory" value={newProduct.memory} onChange={(e) => setNewProduct({ ...newProduct, memory: e.target.value })} />
+          <input type="text" placeholder="Manufacturer" value={newProduct.manufacturer} onChange={(e) => setNewProduct({ ...newProduct, manufacturer: e.target.value })} />
+        </div>
+        <button onClick={handleAddProduct}>Add Product</button>
+      </div>
+      <div>
+        <h2>Existing Products</h2>
         {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - ${product.price}
-            <button onClick={() => handleDeleteProduct(product.id)}>Remove</button>
-          </li>
+          <div key={product.id}>
+            <p>{product.name}</p>
+            <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
+          </div>
         ))}
-      </ul>
-      <h3>Add New Product</h3>
-      <input type="text" placeholder="Name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
-      <input type="number" placeholder="Price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })} />
-      <input type="text" placeholder="Release Date" value={newProduct.releaseDate} onChange={(e) => setNewProduct({ ...newProduct, releaseDate: e.target.value })} />
-      <input type="text" placeholder="Memory" value={newProduct.memory} onChange={(e) => setNewProduct({ ...newProduct, memory: e.target.value })} />
-      <button onClick={handleAddProduct}>Add Product</button>
+      </div>
     </div>
   );
 };

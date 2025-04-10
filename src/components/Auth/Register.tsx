@@ -7,11 +7,11 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-
-  const { registerUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const { registerUser } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -21,33 +21,29 @@ const Register: React.FC = () => {
     }
 
     try {
+      console.log("Registering user...");
       await registerUser(email, password);
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.message || "Registration failed.");
-      console.error("Registration error:", err);
+      console.log("User registered successfully");
+      navigate("/profile");
+    } catch (error) {
+      console.error("Registration error:", error);
+      setError("Registration failed. Please try again.");
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>Create an Account</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleRegister} className="register-form">
-        <div>
-          <label>Email:</label><br />
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Password:</label><br />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <div>
-          <label>Confirm Password:</label><br />
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-        </div>
-        <button type="submit">Register</button>
+    <div>
+      <h2>Sign Up</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        <button type="submit">Sign Up</button>
       </form>
+      <p onClick={() => navigate("/login")} style={{ cursor: "pointer", color: "blue" }}>
+        Already have an account? Login
+      </p>
     </div>
   );
 };

@@ -1,43 +1,39 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
-
-interface GraphicsCard {
-  id: string;
-  name: string;
-  releaseDate: string;
-  memory: string;
-  price: number;
-}
+import { Product } from "../components/Admin/ProductManagement";
 
 interface ProductContextType {
-  graphicsCards: GraphicsCard[];
+  products: Product[];
   loading: boolean;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [graphicsCards, setGraphicsCards] = useState<GraphicsCard[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchGraphicsCards = async () => {
+    const fetchProducts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "GraphicsCards"));
-        const cardsData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as GraphicsCard[];
-        setGraphicsCards(cardsData);
+        const querySnapshot = await getDocs(collection(db, "Products"));
+        const productsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Product[];
+        setProducts(productsData);
       } catch (error) {
-        console.error("Error fetching graphics cards:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchGraphicsCards();
+    fetchProducts();
   }, []);
 
   return (
-    <ProductContext.Provider value={{ graphicsCards, loading }}>
+    <ProductContext.Provider value={{ products, loading }}>
       {children}
     </ProductContext.Provider>
   );
