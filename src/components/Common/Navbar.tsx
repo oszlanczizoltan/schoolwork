@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header>
-      <h1>Graphics Card shop</h1>
+      <h1>Electronics Shop</h1>
       <div className="nav-buttons">
         <button onClick={() => navigate("/")}>Home</button>
         <button onClick={() => navigate("/products")}>Products</button>
