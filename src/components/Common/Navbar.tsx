@@ -8,11 +8,10 @@ const Navbar: React.FC = () => {
     <header>
       <h1>Electronics Shop</h1>
       <div className="nav-buttons">
-        <button onClick={() => navigate("/")}>Home</button>
         <button onClick={() => navigate("/products")}>Products</button>
-        <button onClick={() => navigate("/cart")}>Cart</button>
         <button onClick={() => navigate("/orders")}>Orders</button>
         <button onClick={() => navigate("/profile")}>Profile</button>
+        <button onClick={() => navigate("/cart")}>Cart</button>
       </div>
     </header>
   );

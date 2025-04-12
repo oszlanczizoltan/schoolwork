@@ -14,20 +14,20 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
+  
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-
+  
     try {
       console.log("Registering user...");
       await registerUser(email, password);
       console.log("User registered successfully");
       navigate("/profile");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration error:", error);
-      setError("Registration failed. Please try again.");
+      setError(error.message || "Registration failed. Please try again.");
     }
   };
 
