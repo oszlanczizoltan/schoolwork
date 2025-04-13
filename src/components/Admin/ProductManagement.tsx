@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addProduct, deleteProduct, getProducts } from "../../services/productService";
+import { addProduct, getProducts } from "../../services/productService";
 
 export interface Product {
   id: string;
@@ -36,16 +36,11 @@ const ProductManagement: React.FC = () => {
     fetchProducts();
   };
 
-  const handleDeleteProduct = async (productId: string) => {
-    await deleteProduct(productId);
-    fetchProducts();
-  };
-
   return (
-    <div>
-      <h1>Product Management</h1>
-      <div>
-        <h2>Add Product</h2>
+    <div className="product-management-container">
+      <div className="product-management-box">
+        <h1>Admin Panel</h1>
+        <h2>Product Management</h2>
         <div className="input-container">
           <input type="text" placeholder="Name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
           <input type="number" placeholder="Price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })} />
@@ -54,15 +49,6 @@ const ProductManagement: React.FC = () => {
           <input type="text" placeholder="Manufacturer" value={newProduct.manufacturer} onChange={(e) => setNewProduct({ ...newProduct, manufacturer: e.target.value })} />
         </div>
         <button onClick={handleAddProduct}>Add Product</button>
-      </div>
-      <div>
-        <h2>Existing Products</h2>
-        {products.map((product) => (
-          <div key={product.id}>
-            <p>{product.name}</p>
-            <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-          </div>
-        ))}
       </div>
     </div>
   );

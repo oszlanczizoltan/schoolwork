@@ -32,7 +32,7 @@ const Cart: React.FC = () => {
 
   const handlePlaceOrder = async () => {
     if (!user) return;
-
+  
     try {
       const orderItems = cart.map((item) => ({
         productId: item.id,
@@ -40,27 +40,34 @@ const Cart: React.FC = () => {
         price: item.price,
         quantity: item.quantity,
       }));
-
+  
       await placeOrder(user.id, orderItems);
       alert("Order placed successfully!");
-      fetchCartItems();
+      setCart([]);
     } catch (error) {
       console.error("Error placing order:", error);
+      alert("Failed to place order. Please try again.");
     }
   };
 
   return (
     <div>
-      <h2>Shopping Cart</h2>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.id}>
-            {item.name} - ${item.price} x {item.quantity}
-            <button onClick={() => handleRemove(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <button onClick={handlePlaceOrder} disabled={cart.length === 0}>Place Order</button>
+      <h1>Cart</h1>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              {item.name} - ${item.price.toFixed(2)} x {item.quantity}
+              <button onClick={() => handleRemove(item.id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <button onClick={handlePlaceOrder} disabled={cart.length === 0}>
+        Place Order
+      </button>
     </div>
   );
 };

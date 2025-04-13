@@ -6,8 +6,10 @@
 }
 
 body {
-  background-color: #b3fdd2;
-  color: #333;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #4d4d6d;
+  color: #ffffff;
   line-height: 1.6;
 }
 
@@ -26,7 +28,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background: #007bff;
+  background: #0c332b;
   color: white;
 }
 
@@ -64,7 +66,6 @@ button {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 
 .profile-container {
   text-align: center;
@@ -116,13 +117,6 @@ button {
 
 .product-table tr:hover {
   background-color: #f9f9f9;
-}
-
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
 }
 
 header {
@@ -198,19 +192,6 @@ header {
   background-color: #005fa3;
 }
 
-.filter-section {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search-bar {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -218,15 +199,18 @@ header {
 }
 
 .product-card {
+  color: #000000;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
-  text-align: center;
+  text-align: left;
 }
 
 .filter-section {
-  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .filter-section input[type="text"] {
@@ -265,4 +249,69 @@ header {
   border: 2px solid white;
   cursor: pointer;
   position: relative;
+}
+
+.product-management-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.product-management-box {
+  background-color: #ffffff;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.existing-products {
+  margin-top: 20px;
+}
+
+.existing-products div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.existing-products p {
+  margin: 0;
+}
+
+.delete-button {
+  padding: 5px 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.delete-button:hover {
+  background-color: #cc0000;
 }

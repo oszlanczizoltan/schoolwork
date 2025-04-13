@@ -1,65 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getOrderHistory } from "../../services/orderService";
 import { useAuth } from "../../context/AuthContext";
+import BackButton from "../Common/BackButton";
 
 interface Order {
   id: string;
-  product?: string;
-  date?: string;
-  status?: string;
+  products: { name: string; price: number; quantity: number }[];
+  status: string;
 }
 
 const OrderHistory: React.FC = () => {
   const { user, loading } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
-  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    if (user) {
+      fetchOrders();
+    }
+  }, [user]);
+
+  const fetchOrders = async () => {
     if (!user) return;
 
-    const fetchOrders = async () => {
-      setIsFetching(true);
-      try {
-        const orderList = await getOrderHistory(user.id);
-        
-        if (!Array.isArray(orderList)) {
-          console.error("Invalid order data received", orderList);
-          return;
-        }
+    try {
+      const orderList = await getOrderHistory(user.id);
 
-        setOrders(
-          orderList.map((order) => ({
-            id: order.id,
-            product: order?.product ?? "Unknown Product",
-            date: order?.date ? new Date(order.date).toLocaleDateString() : "Unknown Date",
-            status: order?.status ?? "Pending",
-          }))
-        );
-      } catch (error) {
-        console.error("Error fetching order history:", error);
-      } finally {
-        setIsFetching(false);
-      }
-    };
+      const mappedOrders = orderList.map((order: any) => ({
+        id: order.id,
+        products: order.products || [],
+        status: order.status || "unknown",
+      }));
 
-    fetchOrders();
-  }, [user]);
+      setOrders(mappedOrders);
+    } catch (error) {
+      console.error("Error fetching order history:", error);
+    }
+  };
 
   if (loading) return <p>Loading user data...</p>;
   if (!user) return <p>Please log in to view your order history.</p>;
 
   return (
     <div>
+      <BackButton />
       <h2>Order History</h2>
-      {isFetching ? <p>Loading orders...</p> : null}
-      {orders.length === 0 && !isFetching ? <p>No orders found.</p> : null}
-      <ul>
-        {orders.map((order) => (
-          <li key={order.id}>
-            {order.product} - {order.date} - Status: {order.status}
-          </li>
-        ))}
-      </ul>
+      {orders.length === 0 ? (
+        <p>No orders found.</p>
+      ) : (
+        <ul>
+          {orders.map((order) => (
+            <li key={order.id}>
+              <p>Order ID: {order.id}</p>
+              <p>Status: {order.status}</p>
+              <ul>
+                {order.products.map((product, index) => (
+                  <li key={index}>
+                    {product.name} - ${product.price.toFixed(2)} x {product.quantity}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

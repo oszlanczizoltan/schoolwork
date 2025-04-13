@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import ProductManagement from "../components/Admin/ProductManagement";
 import ProductListing from "../components/User/ProductListing";
-import { getProducts } from "../services/productService";
+import { getProducts, deleteProduct } from "../services/productService";
 import { Product } from "../components/Admin/ProductManagement";
 import { Range } from "react-range";
 
@@ -24,6 +24,15 @@ const Products: React.FC = () => {
     loadProducts();
   }, []);
 
+  const handleDeleteProduct = async (productId: string) => {
+    try {
+      await deleteProduct(productId);
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPrice = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
@@ -38,13 +47,12 @@ const Products: React.FC = () => {
 
   return (
     <div>
-      <h1>Products</h1>
       {user?.role === "admin" && (
         <div>
-          <h2>Admin Panel</h2>
           <ProductManagement />
         </div>
       )}
+      <h1>Products</h1>
       <div className="filter-section">
         <input type="text" placeholder="Search products..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <input type="text" placeholder="Manufacturer" value={filters.manufacturer} onChange={(e) => setFilters({ ...filters, manufacturer: e.target.value })} />
@@ -61,7 +69,9 @@ const Products: React.FC = () => {
           />
         </div>
       </div>
-      <ProductListing products={filteredProducts} />
+      {user && (
+        <ProductListing products={filteredProducts} user={user} handleDeleteProduct={handleDeleteProduct} />
+      )}
     </div>
   );
 };

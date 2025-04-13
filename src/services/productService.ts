@@ -74,14 +74,23 @@ export const getOrders = async (): Promise<{ id: string; userId: string; product
   const snapshot = await getDocs(ordersCollection);
   return snapshot.docs.map((doc) => ({
     id: doc.id,
-    userId: doc.data().userId,
-    products: doc.data().products,
-    status: doc.data().status,
-    timestamp: doc.data().timestamp,
+    userId: doc.data().userId || "unknown",
+    products: (doc.data().products || []).map((product: any) => ({
+      name: product.name || "Unknown Product",
+      price: product.price || 0,
+      quantity: product.quantity || 1,
+    })),
+    status: doc.data().status || "unknown",
+    timestamp: doc.data().timestamp || new Date().toISOString(),
   }));
 };
 
 export const approveOrder = async (orderId: string) => {
   const orderRef = doc(db, "Orders", orderId);
   await updateDoc(orderRef, { status: "approved" });
+};
+
+export const declineOrder = async (orderId: string) => {
+  const orderRef = doc(db, "Orders", orderId);
+  await updateDoc(orderRef, { status: "cancelled" });
 };
