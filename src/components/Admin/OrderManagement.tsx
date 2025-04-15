@@ -27,15 +27,20 @@ const OrderManagement: React.FC = () => {
     fetchOrders();
   };
 
+  const ongoingOrders = orders.filter((order) => order.status === "pending");
+  const pastOrders = orders.filter((order) => order.status === "approved" || order.status === "cancelled");
+
   return (
-    <div>
-      <h2>Admin Orders</h2>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
+    <div className="orders-container">
+      <h2>Admin Order Panel</h2>
+
+      <h3>Ongoing Orders</h3>
+      {ongoingOrders.length === 0 ? (
+        <p>No ongoing orders.</p>
       ) : (
-        orders.map((order) => (
-          <div key={order.id}>
-            <p>Order ID: {order.id}</p>
+        ongoingOrders.map((order) => (
+          <div key={order.id} className="order-box">
+            <h3>Order ID: {order.id}</h3>
             <p>Status: {order.status}</p>
             <ul>
               {order.products.map((product, index) => (
@@ -44,12 +49,27 @@ const OrderManagement: React.FC = () => {
                 </li>
               ))}
             </ul>
-            {order.status === "pending" && (
-              <>
-                <button onClick={() => handleApprove(order.id)}>Approve</button>
-                <button onClick={() => handleDecline(order.id)}>Decline</button>
-              </>
-            )}
+            <button onClick={() => handleApprove(order.id)}>Approve</button>
+            <button onClick={() => handleDecline(order.id)} className="decline-button">Decline</button>
+          </div>
+        ))
+      )}
+
+      <h3>Past Orders</h3>
+      {pastOrders.length === 0 ? (
+        <p>No past orders.</p>
+      ) : (
+        pastOrders.map((order) => (
+          <div key={order.id} className="order-box">
+            <h3>Order ID: {order.id}</h3>
+            <p>Status: {order.status}</p>
+            <ul>
+              {order.products.map((product, index) => (
+                <li key={index}>
+                  {product.name} - ${product.price.toFixed(2)} x {product.quantity}
+                </li>
+              ))}
+            </ul>
           </div>
         ))
       )}

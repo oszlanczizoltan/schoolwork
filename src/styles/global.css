@@ -67,14 +67,6 @@ button {
   border-radius: 5px;
 }
 
-.profile-container {
-  text-align: center;
-}
-
-.profile-container h2 {
-  margin-bottom: 10px;
-}
-
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -314,4 +306,240 @@ header {
 
 .delete-button:hover {
   background-color: #cc0000;
+}
+
+.orders-container {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.order-box {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-box h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.order-box p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.order-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.order-box ul li {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.order-box button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.order-box button:hover {
+  background-color: #0056b3;
+}
+
+.order-box .decline-button {
+  background-color: #dc3545;
+}
+
+.order-box .decline-button:hover {
+  background-color: #a71d2a;
+}
+
+.home-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  min-height: 91.2vh;
+  background-image: url('../images/homepagebg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.home-main-content {
+  color: black;
+  font-size: 36px;
+  max-width: 1900px;
+  z-index: 1;
+  margin-top: 50px;
+  line-height: 1.8;
+}
+
+.home-view-products-btn {
+  display: inline-block;
+  margin-top: 150px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 30px;
+}
+
+.home-view-products-btn:hover {
+  background-color: #0056b3;
+}
+
+.home-review {
+  position: absolute;
+  width: 400px;
+  padding: 15px;
+  background-color: rgb(195, 253, 177);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 21px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.home-review-left {
+  left: 200px;
+  top: 58%;
+  transform: translateY(-50%);
+}
+
+.home-review-right {
+  right: 200px;
+  top: 58%;
+  transform: translateY(-50%);
+}
+
+.profile-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 18px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.profile-container h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.profile-container h2,
+.profile-container h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.profile-container label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.profile-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.profile-container input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.profile-container button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.profile-container button:hover {
+  background-color: #0056b3;
+}
+
+.profile-container p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile-container .button-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 400px;
+  margin-top: 20px;
+}
+
+.profile-container .button-container .logout-button {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-container .button-container .logout-button:hover {
+  background-color: #a71d2a;
+}
+
+.profile-container .back-button {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.profile-container .back-button:hover {
+  background-color: #0056b3;
 }
