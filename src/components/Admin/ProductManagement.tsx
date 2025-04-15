@@ -8,6 +8,7 @@ export interface Product {
   releaseDate: string;
   memory: string;
   manufacturer: string;
+  imageUrl?: string;
 }
 
 const ProductManagement: React.FC = () => {
@@ -19,6 +20,7 @@ const ProductManagement: React.FC = () => {
     releaseDate: "",
     memory: "",
     manufacturer: "",
+    imageUrl: "",
   });
 
   const fetchProducts = async () => {
@@ -31,9 +33,13 @@ const ProductManagement: React.FC = () => {
   };
 
   const handleAddProduct = async () => {
-    await addProduct(newProduct);
-    setNewProduct({ id: "", name: "", price: 0, releaseDate: "", memory: "", manufacturer: "" });
-    fetchProducts();
+    try {
+      await addProduct(newProduct);
+      setNewProduct({ id: "", name: "", price: 0, releaseDate: "", memory: "", manufacturer: "", imageUrl: "" });
+      fetchProducts();
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   return (
@@ -47,6 +53,7 @@ const ProductManagement: React.FC = () => {
           <input type="date" placeholder="Release Date" value={newProduct.releaseDate} onChange={(e) => setNewProduct({ ...newProduct, releaseDate: e.target.value })} />
           <input type="text" placeholder="Memory" value={newProduct.memory} onChange={(e) => setNewProduct({ ...newProduct, memory: e.target.value })} />
           <input type="text" placeholder="Manufacturer" value={newProduct.manufacturer} onChange={(e) => setNewProduct({ ...newProduct, manufacturer: e.target.value })} />
+          <input type="text" placeholder="Image URL" value={newProduct.imageUrl} onChange={(e) => setNewProduct({ ...newProduct, imageUrl: e.target.value })} />
         </div>
         <button onClick={handleAddProduct}>Add Product</button>
       </div>

@@ -23,22 +23,6 @@ body {
   border-radius: 8px;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: #0c332b;
-  color: white;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: bold;
-}
-
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -87,19 +71,6 @@ button {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.8rem;
-}
-
-.product-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-}
-
-.product-table th,
-.product-table td {
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  text-align: left;
 }
 
 .product-table th {
@@ -159,10 +130,6 @@ header {
   text-align: left;
 }
 
-.product-table th {
-  background-color: #f0f0f0;
-}
-
 .home-container {
   text-align: center;
   padding: 4rem 2rem;
@@ -190,19 +157,11 @@ header {
   gap: 20px;
 }
 
-.product-card {
-  color: #000000;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  text-align: left;
-}
-
 .filter-section {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+  margin-left: 1cm;
 }
 
 .filter-section input[type="text"] {
@@ -216,7 +175,8 @@ header {
 }
 
 .price-slider {
-  margin: 20px 0;
+  margin-left: 1cm;
+  margin-bottom: 15px;
 }
 
 .price-slider label {
@@ -275,24 +235,6 @@ header {
   font-size: 16px;
 }
 
-.existing-products {
-  margin-top: 20px;
-}
-
-.existing-products div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.existing-products p {
-  margin: 0;
-}
-
 .delete-button {
   padding: 5px 10px;
   background-color: #ff4d4d;
@@ -309,8 +251,10 @@ header {
 }
 
 .orders-container {
+  margin-top: 25px;
   padding: 20px;
   min-height: 100vh;
+  max-width: fit-content;
 }
 
 .order-box {
@@ -377,7 +321,7 @@ header {
   position: relative;
   padding: 20px;
   min-height: 91.2vh;
-  background-image: url('../images/homepagebg.jpg');
+  background-image: url('../../public/images/homepagebg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -525,7 +469,7 @@ header {
   background-color: #a71d2a;
 }
 
-.profile-container .back-button {
+.back-button {
   position: absolute;
   top: 90px;
   left: 20px;
@@ -540,6 +484,32 @@ header {
   transition: background-color 0.3s ease;
 }
 
-.profile-container .back-button:hover {
-  background-color: #0056b3;
+.product-card {
+  width: 80%;
+  color: black;
+  margin-left: 1cm;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: left;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-image {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.products-title {
+  margin-left: 1cm;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }

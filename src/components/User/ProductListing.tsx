@@ -39,23 +39,25 @@ const ProductListing: React.FC<ProductListingProps> = ({ products, user, handleD
     <div className="product-grid">
       {products.map((product) => (
         <div key={product.id} className="product-card">
-          <h3>{product.name}</h3>
-          <p>Price: ${product.price.toFixed(2)}</p>
-          <p>Memory: {product.memory}</p>
-          <p>Release Date: {product.releaseDate}</p>
-          <p>Manufacturer: {product.manufacturer}</p>
-          {user.role === "admin" && (
-            <button onClick={() => confirmDelete(product.id)} className="delete-button">
-              Delete
+          <div className="product-details">
+            <h3>{product.name}</h3>
+            <p>Price: ${product.price.toFixed(2)}</p>
+            <p>Memory: {product.memory}</p>
+            <p>Release Date: {product.releaseDate}</p>
+            <p>Manufacturer: {product.manufacturer}</p>
+            {user.role === "admin" && (
+              <button onClick={() => confirmDelete(product.id)} className="delete-button">
+                Delete
+              </button>
+            )}
+            <button onClick={() => handleAddToCart(product)} className="to-cart-button">
+              To Cart
             </button>
-          )}
-          <button onClick={() => handleAddToCart(product)} className="to-cart-button">
-            To Cart
-          </button>
+          </div>
+          {product.imageUrl && <img src={product.imageUrl} alt={product.name} className="product-image" />}
         </div>
       ))}
     </div>
-  );
-};
+  )};
 
 export default ProductListing;

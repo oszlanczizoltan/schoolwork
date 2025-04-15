@@ -15,6 +15,7 @@ export const getProducts = async (): Promise<Product[]> => {
     releaseDate: doc.data().releaseDate,
     memory: doc.data().memory,
     manufacturer: doc.data().manufacturer,
+    imageUrl: doc.data().imageUrl,
   }));
 };
 

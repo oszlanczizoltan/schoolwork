@@ -52,13 +52,14 @@ const Products: React.FC = () => {
           <ProductManagement />
         </div>
       )}
-      <h1>Products</h1>
+      <h1 className="products-title">Products</h1>
       <div className="filter-section">
         <input type="text" placeholder="Search products..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        <input type="text" placeholder="Manufacturer" value={filters.manufacturer} onChange={(e) => setFilters({ ...filters, manufacturer: e.target.value })} />
+        <input type="text" placeholder="Search manufacturers..." value={filters.manufacturer} onChange={(e) => setFilters({ ...filters, manufacturer: e.target.value })} />
         <div className="price-slider">
           <label>Price Range: ${filters.priceRange[0]} - ${filters.priceRange[1]}</label>
-          <Range step={10} min={0} max={2500} values={filters.priceRange} onChange={(values) => setFilters({ ...filters, priceRange: values })} renderTrack={({ props, children }) => (
+          <Range step={10} min={0} max={2500} values={filters.priceRange} onChange={(values) => setFilters({ ...filters, priceRange: values })}
+            renderTrack={({ props, children }) => (
               <div {...props} className="slider-track">
                 {children}
               </div>
