@@ -6,7 +6,7 @@ import { getOrders } from "../../services/productService";
 
 
 const OrderHistory: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const [orders, setOrders] = useState<{ id: string; userId: string; products: any[]; status: string }[]>([]);
 
   useEffect(() => {
@@ -26,25 +26,27 @@ const OrderHistory: React.FC = () => {
 
   return (
     <div className="orders-container">
-      <BackButton />
-      <h2>Order History</h2>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        pastOrders.map((order) => (
-          <div key={order.id} className="order-box">
-            <h3>Order ID: {order.id}</h3>
-            <p>Status: {order.status}</p>
-            <ul>
-              {order.products.map((product, index) => (
-                <li key={index}>
-                  {product.name} - ${product.price.toFixed(2)} x {product.quantity}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      )}
+      <div className="orders-column">
+        <BackButton />
+        <h2>Order History</h2>
+        {orders.length === 0 ? (
+          <p>No orders found.</p>
+        ) : (
+          pastOrders.map((order) => (
+            <div key={order.id} className="order-box">
+              <h3>Order ID: {order.id}</h3>
+              <p>Status: {order.status}</p>
+              <ul>
+                {order.products.map((product, index) => (
+                  <li key={index}>
+                    {product.name} - ${product.price.toFixed(2)} x {product.quantity}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

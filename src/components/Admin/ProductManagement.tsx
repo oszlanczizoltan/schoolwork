@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addProduct, getProducts } from "../../services/productService";
+import { addProduct } from "../../services/productService";
 
 export interface Product {
   id: string;
@@ -12,7 +12,6 @@ export interface Product {
 }
 
 const ProductManagement: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [newProduct, setNewProduct] = useState<Product>({
     id: "",
     name: "",
@@ -23,20 +22,10 @@ const ProductManagement: React.FC = () => {
     imageUrl: "",
   });
 
-  const fetchProducts = async () => {
-    try {
-      const productList = await getProducts();
-      setProducts(productList);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
   const handleAddProduct = async () => {
     try {
       await addProduct(newProduct);
       setNewProduct({ id: "", name: "", price: 0, releaseDate: "", memory: "", manufacturer: "", imageUrl: "" });
-      fetchProducts();
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -49,7 +38,8 @@ const ProductManagement: React.FC = () => {
         <h2>Product Management</h2>
         <div className="input-container">
           <input type="text" placeholder="Name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
-          <input type="number" placeholder="Price" value={newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })} />
+          <input type="number" placeholder="Price" value={newProduct.price === 0 ? "" : newProduct.price} onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })} />
+          <p>Release Date: </p>
           <input type="date" placeholder="Release Date" value={newProduct.releaseDate} onChange={(e) => setNewProduct({ ...newProduct, releaseDate: e.target.value })} />
           <input type="text" placeholder="Memory" value={newProduct.memory} onChange={(e) => setNewProduct({ ...newProduct, memory: e.target.value })} />
           <input type="text" placeholder="Manufacturer" value={newProduct.manufacturer} onChange={(e) => setNewProduct({ ...newProduct, manufacturer: e.target.value })} />

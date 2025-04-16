@@ -1,9 +1,8 @@
-import { collection, getDocs, doc, addDoc, deleteDoc, updateDoc, query, where } from "firebase/firestore";
+import { collection, getDocs, doc, addDoc, deleteDoc, updateDoc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { Product } from "../components/Admin/ProductManagement";
 
 const productsCollection = collection(db, "Products");
-const cartCollection = collection(db, "Cart");
 const ordersCollection = collection(db, "Orders");
 
 export const getProducts = async (): Promise<Product[]> => {
@@ -31,29 +30,57 @@ export const deleteProduct = async (productId: string) => {
 };
 
 export const addToCart = async (userId: string, product: Product, quantity: number) => {
-  const cartItem = {
-    userId,
-    productId: product.id,
-    name: product.name,
-    price: product.price,
-    quantity,
-  };
-  await addDoc(cartCollection, cartItem);
+  const cartRef = doc(db, "Cart", userId);
+  const cartSnapshot = await getDoc(cartRef);
+
+  let cartData = cartSnapshot.exists() ? cartSnapshot.data() : { items: {} };
+
+  if (!cartData.items) {
+    cartData.items = {};
+  }
+
+  if (cartData.items[product.id]) {
+    cartData.items[product.id].quantity += quantity;
+  } else {
+    cartData.items[product.id] = {
+      name: product.name,
+      price: product.price,
+      quantity,
+    };
+  }
+  await setDoc(cartRef, cartData, { merge: true });
 };
 
 export const getCartItems = async (userId: string): Promise<{ id: string; name: string; price: number; quantity: number }[]> => {
-  const snapshot = await getDocs(query(cartCollection, where("userId", "==", userId)));
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    name: doc.data().name,
-    price: doc.data().price,
-    quantity: doc.data().quantity,
+  const cartRef = doc(db, "Cart", userId);
+  const cartSnapshot = await getDoc(cartRef);
+  if (!cartSnapshot.exists()) {
+    return [];
+  }
+  const cartData = cartSnapshot.data();
+  return Object.keys(cartData.items || {}).map((key) => ({
+    id: key,
+    name: cartData.items[key].name,
+    price: cartData.items[key].price,
+    quantity: cartData.items[key].quantity,
   }));
 };
 
-export const removeFromCart = async (cartItemId: string) => {
-  const cartItemRef = doc(db, "Cart", cartItemId);
-  await deleteDoc(cartItemRef);
+export const removeFromCart = async (userId: string, productId: string) => {
+  const cartRef = doc(db, "Cart", userId);
+  const cartSnapshot = await getDoc(cartRef);
+
+  if (!cartSnapshot.exists()) {
+    throw new Error("Cart does not exist");
+  }
+
+  const cartData = cartSnapshot.data();
+  if (cartData.items && cartData.items[productId]) {
+    delete cartData.items[productId];
+    await setDoc(cartRef, cartData, { merge: true });
+  } else {
+    throw new Error("Product not found in cart");
+  }
 };
 
 export const placeOrder = async (userId: string, products: { productId: string; name: string; price: number; quantity: number }[]) => {
@@ -65,10 +92,8 @@ export const placeOrder = async (userId: string, products: { productId: string; 
   };
   await addDoc(ordersCollection, order);
 
-  const cartSnapshot = await getDocs(query(cartCollection, where("userId", "==", userId)));
-  cartSnapshot.forEach(async (doc) => {
-    await deleteDoc(doc.ref);
-  });
+  const cartRef = doc(db, "Cart", userId);
+  await deleteDoc(cartRef);
 };
 
 export const getOrders = async (): Promise<{ id: string; userId: string; products: any[]; status: string; timestamp: string }[]> => {

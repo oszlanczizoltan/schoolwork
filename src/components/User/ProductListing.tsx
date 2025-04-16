@@ -5,11 +5,12 @@ import { addToCart } from "../../services/productService";
 
 interface ProductListingProps {
   products: Product[];
-  user: { role: string };
+  user: { role: string } | null;
   handleDeleteProduct: (productId: string) => void;
 }
 
 const ProductListing: React.FC<ProductListingProps> = ({ products, user, handleDeleteProduct }) => {
+  console.log("Products in ProductListing:", products);
   const { user: authUser } = useAuth();
 
   const confirmDelete = (productId: string) => {
@@ -34,7 +35,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ products, user, handleD
     }
   };
 
-  
+
   return (
     <div className="product-grid">
       {products.map((product) => (
@@ -45,7 +46,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ products, user, handleD
             <p>Memory: {product.memory}</p>
             <p>Release Date: {product.releaseDate}</p>
             <p>Manufacturer: {product.manufacturer}</p>
-            {user.role === "admin" && (
+            {user && user.role === "admin" && (
               <button onClick={() => confirmDelete(product.id)} className="delete-button">
                 Delete
               </button>
@@ -58,6 +59,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ products, user, handleD
         </div>
       ))}
     </div>
-  )};
+  )
+};
 
 export default ProductListing;

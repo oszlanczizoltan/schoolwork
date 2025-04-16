@@ -18,8 +18,14 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
+      try {
+        console.log("Fetching products...");
+        const fetchedProducts = await getProducts();
+        console.log("Fetched products:", fetchedProducts);
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
     loadProducts();
   }, []);
@@ -44,6 +50,8 @@ const Products: React.FC = () => {
 
     return matchesSearch && matchesPrice && matchesReleaseDate && matchesManufacturer;
   });
+
+  console.log("Filtered products:", filteredProducts);
 
   return (
     <div>
@@ -70,9 +78,7 @@ const Products: React.FC = () => {
           />
         </div>
       </div>
-      {user && (
         <ProductListing products={filteredProducts} user={user} handleDeleteProduct={handleDeleteProduct} />
-      )}
     </div>
   );
 };

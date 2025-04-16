@@ -32,47 +32,50 @@ const OrderManagement: React.FC = () => {
 
   return (
     <div className="orders-container">
-      <h2>Admin Order Panel</h2>
-
-      <h3>Ongoing Orders</h3>
-      {ongoingOrders.length === 0 ? (
-        <p>No ongoing orders.</p>
-      ) : (
-        ongoingOrders.map((order) => (
-          <div key={order.id} className="order-box">
-            <h3>Order ID: {order.id}</h3>
-            <p>Status: {order.status}</p>
-            <ul>
-              {order.products.map((product, index) => (
-                <li key={index}>
-                  {product.name} - ${product.price.toFixed(2)} x {product.quantity}
-                </li>
-              ))}
-            </ul>
-            <button onClick={() => handleApprove(order.id)}>Approve</button>
-            <button onClick={() => handleDecline(order.id)} className="decline-button">Decline</button>
-          </div>
-        ))
-      )}
-
-      <h3>Past Orders</h3>
-      {pastOrders.length === 0 ? (
-        <p>No past orders.</p>
-      ) : (
-        pastOrders.map((order) => (
-          <div key={order.id} className="order-box">
-            <h3>Order ID: {order.id}</h3>
-            <p>Status: {order.status}</p>
-            <ul>
-              {order.products.map((product, index) => (
-                <li key={index}>
-                  {product.name} - ${product.price.toFixed(2)} x {product.quantity}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      )}
+      <div className="orders-column">
+        <h3>Ongoing Orders</h3>
+        {ongoingOrders.length === 0 ? (
+          <p>No ongoing orders.</p>
+        ) : (
+          ongoingOrders.map((order) => (
+            <div key={order.id} className="order-box">
+              <h3>Order ID: {order.id}</h3>
+              <p>Status: {order.status}</p>
+              <ul>
+                {order.products.map((product, index) => (
+                  <li key={index}>
+                    {product.name} - ${product.price.toFixed(2)} x {product.quantity}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={() => handleApprove(order.id)}>Approve</button>
+              <button onClick={() => handleDecline(order.id)} className="decline-button">
+                Decline
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+      <div className="orders-column">
+        <h3>Past Orders</h3>
+        {pastOrders.length === 0 ? (
+          <p>No past orders.</p>
+        ) : (
+          pastOrders.map((order) => (
+            <div key={order.id} className="order-box">
+              <h3>Order ID: {order.id}</h3>
+              <p>Status: {order.status}</p>
+              <ul>
+                {order.products.map((product, index) => (
+                  <li key={index}>
+                    {product.name} - ${product.price.toFixed(2)} x {product.quantity}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

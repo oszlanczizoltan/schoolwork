@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
+import { useAuth } from "../context/AuthContext";
 
 interface Order {
   id: string;
@@ -13,9 +14,12 @@ interface Order {
 const useOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
+    console.log("User in useOrders:", user);
     const fetchOrders = async () => {
+      if (!user) return;
       try {
         const querySnapshot = await getDocs(collection(db, "Orders"));
         const ordersData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Order[];
@@ -28,7 +32,7 @@ const useOrders = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [user]);
 
   return { orders, loading };
 };

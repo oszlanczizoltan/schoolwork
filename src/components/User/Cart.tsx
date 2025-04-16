@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getCartItems, removeFromCart, placeOrder } from "../../services/productService";
 import { useAuth } from "../../context/AuthContext";
 
@@ -6,13 +6,8 @@ const Cart: React.FC = () => {
   const { user } = useAuth();
   const [cart, setCart] = useState<{ id: string; name: string; price: number; quantity: number }[]>([]);
 
-  useEffect(() => {
-    if (user) {
-      fetchCartItems();
-    }
-  }, [user]);
 
-  const fetchCartItems = async () => {
+  const fetchCartItems = useCallback(async () => {
     if (!user) return;
 
     try {
@@ -21,12 +16,18 @@ const Cart: React.FC = () => {
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
-  };
+  }, [user]);
 
-  const handleRemove = async (cartItemId: string) => {
+  useEffect(() => {
+    if (user) {
+      fetchCartItems();
+    }
+  }, [user, fetchCartItems]);
+
+  const handleRemove = async (productId: string) => {
     if (!user) return;
 
-    await removeFromCart(cartItemId);
+    await removeFromCart(user.id, productId);
     fetchCartItems();
   };
 
@@ -51,21 +52,27 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Cart</h1>
+    <div className="cart-container">
+      <h1 className="cart-title">Cart</h1>
       {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p className="cart-empty">Your cart is empty.</p>
       ) : (
-        <ul>
+        <ul className="cart-items">
           {cart.map((item) => (
-            <li key={item.id}>
-              {item.name} - ${item.price.toFixed(2)} x {item.quantity}
-              <button onClick={() => handleRemove(item.id)}>Remove</button>
+            <li key={item.id} className="cart-item">
+              <div className="cart-item-details">
+                <p className="cart-item-name">{item.name}</p>
+                <p className="cart-item-price">${item.price.toFixed(2)}</p>
+                <p className="cart-item-quantity">Quantity: {item.quantity}</p>
+              </div>
+              <button onClick={() => handleRemove(item.id)} className="cart-item-remove">
+                Remove
+              </button>
             </li>
           ))}
         </ul>
       )}
-      <button onClick={handlePlaceOrder} disabled={cart.length === 0}>
+      <button onClick={handlePlaceOrder} disabled={cart.length === 0} className="cart-place-order">
         Place Order
       </button>
     </div>
