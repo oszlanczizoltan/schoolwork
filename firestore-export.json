@@ -1,0 +1,186 @@
+{
+  "Cart": [
+    {
+      "id": "IG8K883XHJZKj0xBUAhp",
+      "userId": "auth.currentUser.uid",
+      "productId": "productId",
+      "name": "name",
+      "price": 299.99,
+      "quantity": 1,
+      "totalPrice": 299.99
+    }
+  ],
+  "Orders": [
+    {
+      "id": "BnhtXCtARm2v3adF7VqX",
+      "userId": "0pELyosZt4ftJsVAD2DctEkatdh1",
+      "products": [
+        {
+          "productId": "MnXS6bUm8BgWwmNivfQ2",
+          "name": "Radeon RX 7900 XTX",
+          "price": 449.99,
+          "quantity": 1
+        }
+      ],
+      "timestamp": "2025-04-13T18:46:00.175Z",
+      "status": "cancelled"
+    },
+    {
+      "id": "HLjz48fvOmLgCUfxSd1x",
+      "userId": "auth.currentUser.uid",
+      "products": [
+        "",
+        "",
+        1,
+        1
+      ],
+      "timestamp": "new Date().toISOString()",
+      "totalPrice": 0,
+      "status": "cancelled"
+    },
+    {
+      "id": "kN4jfYIg2YZLMP7jDLvc",
+      "userId": "0pELyosZt4ftJsVAD2DctEkatdh1",
+      "products": [
+        {
+          "productId": "ARXoz7NgUdu4deQIUQ96",
+          "name": "GeForce RTX 4070",
+          "price": 599.99,
+          "quantity": 1
+        },
+        {
+          "productId": "l6xTdiyJhFqrA6OfPUxx",
+          "name": "GeForce RTX 3070",
+          "price": 499.99,
+          "quantity": 1
+        }
+      ],
+      "timestamp": "2025-04-15T13:50:23.019Z",
+      "status": "cancelled"
+    },
+    {
+      "id": "x3CSeHD24YIZZ1lm538k",
+      "userId": "0pELyosZt4ftJsVAD2DctEkatdh1",
+      "products": [
+        {
+          "productId": "7hKxJil0Ol2Mxih6cXBY",
+          "name": "Radeon RX 7800 XT",
+          "price": 579.99,
+          "quantity": 1
+        },
+        {
+          "productId": "NmKMQLbFi4ZZwdUexAn9",
+          "name": "Radeon RX 6700 XT",
+          "price": 285.99,
+          "quantity": 1
+        }
+      ],
+      "timestamp": "2025-04-16T19:14:54.875Z",
+      "status": "cancelled"
+    },
+    {
+      "id": "yS2bCKonE9DlJiOPmcba",
+      "userId": "0pELyosZt4ftJsVAD2DctEkatdh1",
+      "products": [
+        {
+          "productId": "7hKxJil0Ol2Mxih6cXBY",
+          "name": "Radeon RX 7800 XT",
+          "price": 579.99,
+          "quantity": 1
+        },
+        {
+          "productId": "NmKMQLbFi4ZZwdUexAn9",
+          "name": "Radeon RX 6700 XT",
+          "price": 285.99,
+          "quantity": 1
+        }
+      ],
+      "timestamp": "2025-04-16T19:18:16.155Z",
+      "status": "cancelled"
+    }
+  ],
+  "Products": [
+    {
+      "id": "7hKxJil0Ol2Mxih6cXBY",
+      "name": "Radeon RX 7800 XT",
+      "price": 579.99,
+      "releaseDate": "2023-08-25",
+      "memory": "16 GB GDDR6",
+      "manufacturer": "AMD",
+      "imageUrl": "https://p1.akcdn.net/mid/1207780633.gigabyte-radeon-rx-7800-xt-gaming-oc-16g-gv-r78xtgaming-oc-16gd.jpg"
+    },
+    {
+      "id": "NmKMQLbFi4ZZwdUexAn9",
+      "name": "Radeon RX 6700 XT",
+      "price": 285.99,
+      "releaseDate": "2021-03-03",
+      "memory": "12 GB GDDR6",
+      "manufacturer": "AMD",
+      "imageUrl": "https://p1.akcdn.net/full/791309844.gigabyte-radeon-rx-6700-xt-oc-12gb-gddr6-192bit-gv-r67xtgaming-oc-12gd.jpg"
+    },
+    {
+      "id": "b5Xm4lL6rnopCMbC2rS5",
+      "name": "GeForce RTX 4070",
+      "price": 599.99,
+      "releaseDate": "2023-04-12",
+      "memory": "12 GB GDDR6X",
+      "manufacturer": "NVIDIA",
+      "imageUrl": "https://p1.akcdn.net/full/1135679328.gigabyte-geforce-rtx-4070-gaming-oc-12g-gddr6x-gv-n4070gaming-oc-12gd.jpg"
+    },
+    {
+      "id": "eHeE7OFwbo0CGqSGbBZt",
+      "name": "GeForce RTX 5090",
+      "price": 2000,
+      "releaseDate": "2025-01-30",
+      "memory": "32GB GDDR7",
+      "manufacturer": "NVIDIA",
+      "imageUrl": "https://p1.akcdn.net/mid/1413092512.gigabyte-geforce-rtx-5090-gaming-oc-32gb-gddr7-512bit-gv-n5090gaming-oc-32gd.jpg"
+    },
+    {
+      "id": "lYWLpekofDopCoLpVwgB",
+      "name": "Radeon RX 7900 XTX",
+      "price": 449.99,
+      "releaseDate": "2022-11-03",
+      "memory": "24 GB GDDR6",
+      "manufacturer": "AMD",
+      "imageUrl": "https://p1.akcdn.net/full/1128918342.gigabyte-radeon-rx-7900-xtx-gaming-oc-24gb-gddr6-384bit-gv-r79xtxgaming-oc-24gd.jpg"
+    },
+    {
+      "id": "ulCAkvZUgBvap5dBKerc",
+      "name": "GeForce RTX 3070",
+      "price": 499.99,
+      "releaseDate": "2020-09-01",
+      "memory": "8 GB GDDR6",
+      "manufacturer": "NVIDIA",
+      "imageUrl": "https://p1.akcdn.net/full/859554378.gigabyte-geforce-rtx-3070-8g-oc-gddr6-256bit-lhr-gv-n3070gaming-oc-8gd-2-0.jpg"
+    }
+  ],
+  "users": [
+    {
+      "id": "0pELyosZt4ftJsVAD2DctEkatdh1",
+      "email": "user1@example.com",
+      "role": "user",
+      "createdAt": "2025-04-12T16:34:46.333Z",
+      "mobile": "06709488515",
+      "address": {
+        "country": "Hungary",
+        "city": "Budapest",
+        "streetName": "Thököly út",
+        "streetNumber": "48",
+        "additionalInfo": ""
+      }
+    },
+    {
+      "id": "",
+      "createdAt": "2025-04-12T19:10:24Z",
+      "email": "admin@example.com",
+      "role": "admin"
+    },
+    {
+      "id": "",
+      "email": "",
+      "role": "",
+      "createdAt": ""
+    }
+  ]
+}

@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# ITwebshop applikáció
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tudnivalók
+Ez a projekt egy webshop alkalmazás, amely informatikai termékek 
+(jelenleg korlátozott állapotban és tartalomban) böngészését és rendelését teszi lehetővé.
+Az adminisztrátorok számára külön felület áll rendelkezésre a termékek és rendelések kezeléséhez.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Technológiák
+A projekt az alábbi technológiákat használja:
+- **React** – Felhasználói felület.
+- **TypeScript** – Típusbiztos fejlesztés.
+- **Firebase**:
+  - **Firestore** – Adatbázis.
+  - **Authentication** – Felhasználók hitelesítése.
+- **CSS** – Egyedi stílusok.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Használat
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Telepítés
+1. Klónozd a projektet:
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
 
-### `npm test`
+2. Telepítsd a függőségeket:
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Hozd létre a Firebase konfigurációs fájlt:
+   - Készíts egy `.env` fájlt a projekt gyökérkönyvtárában.
+   - Add hozzá a szükséges Firebase beállításokat, pl.:
+     ```
+     VITE_FIREBASE_API_KEY=...
+     VITE_FIREBASE_AUTH_DOMAIN=...
+     VITE_FIREBASE_PROJECT_ID=...
+     ```
 
-### `npm run build`
+4. Indítsd el a fejlesztői szervert:
+   ```bash
+   npm run dev
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Nyisd meg a böngésződben:  
+   [http://localhost:3000](http://localhost:3000)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Admin felület
+Az adminisztrátorok számára az alábbi funkciók érhetők el:
 
-### `npm run eject`
+### Termékek kezelése
+- Új termékek hozzáadása
+- Meglévő termékek szerkesztése és törlése
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Rendelések kezelése
+- Folyamatban lévő rendelések megtekintése
+- Rendelések jóváhagyása vagy elutasítása
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Az adminisztrátori felület használatához ezzel a fiókkal tudsz belépni:
+### **Email**: `admin@example.com`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **Jelszó**: `admin123` 
